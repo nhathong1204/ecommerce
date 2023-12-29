@@ -1,0 +1,332 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+{% block content %}
+    <main class="main pages">
+        <div class="page-header breadcrumb-wrap">
+            <div class="container">
+                <div class="breadcrumb">
+                    <a href="{% url 'core:index' %}" rel="nofollow"><i class="fi-rs-home mr-5"></i>Home</a>
+                    <span></span> Pages <span></span> My Account
+                </div>
+            </div>
+        </div>
+        <div class="page-content pt-150 pb-150">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-10 m-auto">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="dashboard-menu">
+                                    <ul class="nav flex-column" role="tablist">
+                                        <!-- <li class="nav-item">
+                                            <a class="nav-link active" id="dashboard-tab" data-bs-toggle="tab" href="{% url 'core:dashboard' %}" role="tab" aria-controls="dashboard" aria-selected="false"><i class="fi-rs-settings-sliders mr-10"></i>Dashboard</a>
+                                        </li> -->
+                                        <li class="nav-item">
+                                            <a class="nav-link active" id="profile-tab" data-bs-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false"><i class="fi-rs-user mr-10"></i>Profile</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" id="orders-tab" data-bs-toggle="tab" href="#orders" role="tab" aria-controls="orders" aria-selected="false"><i class="fi-rs-shopping-bag mr-10"></i>Orders</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" id="chart-orders-tab" data-bs-toggle="tab" href="#chart-orders" role="tab" aria-controls="chart-orders" aria-selected="false"><i class="fa fa-bar-chart mr-10"></i>Orders Chart</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" id="address-tab" data-bs-toggle="tab" href="#address" role="tab" aria-controls="address" aria-selected="true"><i class="fi-rs-marker mr-10"></i>My Address</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" id="account-detail-tab" data-bs-toggle="tab" href="#account-detail" role="tab" aria-controls="account-detail" aria-selected="true"><i class="fi-rs-user mr-10"></i>Account details</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="{% url 'userauths:sign-out' %}"><i class="fi-rs-sign-out mr-10"></i>Logout</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="tab-content account dashboard-content pl-50">
+                                    <!-- <div class="tab-pane fade active show" id="dashboard" role="tabpanel" aria-labelledby="dashboard-tab">
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <h3 class="mb-0">Hello {{ request.user|title }}!</h3>
+                                            </div>
+                                            <div class="card-body">
+                                                <p>
+                                                    From your account dashboard. you can easily check &amp; view your <a href="#">recent orders</a>,<br />
+                                                    manage your <a href="#">shipping and billing addresses</a> and <a href="#">edit your password and account details.</a>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div> -->
+                                    <div class="tab-pane fade active show" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                                        <div class="card">
+                                            <div class="card-header border-bottom">
+                                                <h3>My Profile</h3>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-lg-4">
+                                                    <div class="card mb-4">
+                                                        <div class="card-body text-center">
+                                                            {% if profile.image %}
+                                                                <img src="{{ profile.image.url }}" alt="avatar" class="rounded-circle img-fluid" style="width: 150px;">
+                                                            {% else %}
+                                                                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" alt="avatar" class="rounded-circle img-fluid" style="width: 150px;">
+                                                            {% endif %}
+                                                            <h5 class="my-3">{{ profile.full_name|title }}</h5>
+                                                            <div class="d-flex justify-content-center mb-2">
+                                                                <a target="_blank" href="https://www.facebook.com/mykhanh0209" class="btn btn-primary">Follow</a>
+                                                                <button type="button" class="btn btn-outline-primary ms-1">Message</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-8">
+                                                    <div class="card mb-4">
+                                                        <div class="card-body">
+                                                            <div class="row">
+                                                                <div class="col-sm-3">
+                                                                    <p class="mb-0">Full Name</p>
+                                                                </div>
+                                                                <div class="col-sm-9">
+                                                                    <p class="text-muted mb-0">{{ profile.full_name }}</p>
+                                                                </div>
+                                                            </div>
+                                                            <hr>
+                                                            <div class="row">
+                                                                <div class="col-sm-3">
+                                                                    <p class="mb-0">Bio</p>
+                                                                </div>
+                                                                <div class="col-sm-9">
+                                                                    <p class="text-muted mb-0">{{ profile.bio }}</p>
+                                                                </div>
+                                                            </div>
+                                                            <hr>
+                                                            <div class="row">
+                                                                <div class="col-sm-3">
+                                                                    <p class="mb-0">Phone</p>
+                                                                </div>
+                                                                <div class="col-sm-9">
+                                                                    <p class="text-muted mb-0">{{ profile.phone }}</p>
+                                                                </div>
+                                                            </div>
+                                                            <hr>
+                                                            <div class="row">
+                                                                <div class="col-sm-3">
+                                                                    <p class="mb-0">Verified</p>
+                                                                </div>
+                                                                <div class="col-sm-9">
+                                                                    <p class="text-muted mb-0"><i class="fas fa-check-circle {% if profile.verified == True %}text-success{% endif %}"></i></p>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="card-body">
+                                                                    <a href="{% url 'userauths:profile-update' %}" class="btn btn-sm btn-primary">Edit Profile</a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="orders" role="tabpanel" aria-labelledby="orders-tab">
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <h3 class="mb-0">Your Orders</h3>
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="table-responsive">
+                                                    <table class="table">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Order</th>
+                                                                <th>Date</th>
+                                                                <th>Status</th>
+                                                                <th>Paid Status</th>
+                                                                <th>Total</th>
+                                                                <th>Actions</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            {% for order in orders_list %}
+                                                                <tr>
+                                                                    <td>INVOICE_NO-{{ order.id }}</td>
+                                                                    <td>{{ order.order_date|date:'M d, Y' }}</td>
+                                                                    <td>{{ order.product_status|title }}</td>
+                                                                    {% if order.paid_status == True %}
+                                                                        <td class="text-success">✔</td>
+                                                                    {% else %}
+                                                                        <td class="text-danger">x</td>
+                                                                    {% endif %}
+                                                                    <td>${{ order.price|floatformat:2 }}</td>
+                                                                    <td><a href="{% url 'core:order-detail' order.id %}" class="btn-small d-block">View</a></td>
+                                                                </tr>
+                                                            {% endfor %}
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="chart-orders" role="tabpanel" aria-labelledby="chart-orders-tab">
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <h3 class="mb-0">Orders Chart</h3>
+                                            </div>
+                                            <div class="card-body contact-from-area">
+                                                <!-- <p>To track your order please enter your OrderID in the box below and press "Track" button. This was given to you on your receipt and in the confirmation email you should have received.</p> -->
+                                                <div class="row">
+                                                    <div class="col-lg-8">
+                                                        <div>
+                                                            <canvas id="myChart"></canvas>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="address" role="tabpanel" aria-labelledby="address-tab">
+                                        <div class="row">
+                                            <div>
+                                                <form class="mb-4" method="POST">
+                                                    {% csrf_token %}
+                                                    <div class="card-header">
+                                                        <h5>Add Address</h5>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="form-group col-md-6">
+                                                            <input required="" placeholder="Address" class="form-control" name="address" type="text" />
+                                                        </div>
+                                                        <div class="form-group col-md-6">
+                                                            <input required="" placeholder="Mobile" class="form-control" name="mobile" type="text" />
+                                                        </div>
+                                                        <div class="col-md-12">
+                                                            <button type="submit" class="btn btn-fill-out submit font-weight-bold" name="submit" value="Submit">Save Address</button>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                            <hr>
+                                            <br>
+                                            {% for addr in address %}
+                                            <div class="col-lg-6">
+                                                <div class="card mb-3 mb-lg-0">
+                                                    <div class="card-header">
+                                                        <h3 class="mb-0">Address {{ forloop.counter }}</h3>
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <address>
+                                                            <p>{{ addr.address }}</p>
+                                                            <p>{{ addr.mobile }}</p>
+                                                        </address>
+                                                        {% if addr.status == True %}
+                                                            <i class="fa fa-check-circle text-success check check{{ addr.id }}" data-address-id="{{ addr.id }}"></i>
+                                                            <button style="display: none;" class="btn btn-sm make-default-address button{{ addr.id }} action_btn" data-address-id="{{ addr.id }}">Make Default</button>
+                                                        {% else %}
+                                                            <i style="display: none;" class="fa fa-check-circle text-success check check{{ addr.id }}" data-address-id="{{ addr.id }}"></i>
+                                                            <button class="btn btn-sm make-default-address button{{ addr.id }} action_btn" data-address-id="{{ addr.id }}">Make Default</button>
+                                                        {% endif %}
+                                                        
+                                                        
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="account-detail" role="tabpanel" aria-labelledby="account-detail-tab">
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <h5>Account Details</h5>
+                                            </div>
+                                            <div class="card-body">
+                                                <p>Already have an account? <a href="page-login.html">Log in instead!</a></p>
+                                                <form method="post" name="enq">
+                                                    <div class="row">
+                                                        <div class="form-group col-md-6">
+                                                            <label>First Name <span class="required">*</span></label>
+                                                            <input required="" class="form-control" name="name" type="text" />
+                                                        </div>
+                                                        <div class="form-group col-md-6">
+                                                            <label>Last Name <span class="required">*</span></label>
+                                                            <input required="" class="form-control" name="phone" />
+                                                        </div>
+                                                        <div class="form-group col-md-12">
+                                                            <label>Display Name <span class="required">*</span></label>
+                                                            <input required="" class="form-control" name="dname" type="text" />
+                                                        </div>
+                                                        <div class="form-group col-md-12">
+                                                            <label>Email Address <span class="required">*</span></label>
+                                                            <input required="" class="form-control" name="email" type="email" />
+                                                        </div>
+                                                        <div class="form-group col-md-12">
+                                                            <label>Current Password <span class="required">*</span></label>
+                                                            <input required="" class="form-control" name="password" type="password" />
+                                                        </div>
+                                                        <div class="form-group col-md-12">
+                                                            <label>New Password <span class="required">*</span></label>
+                                                            <input required="" class="form-control" name="npassword" type="password" />
+                                                        </div>
+                                                        <div class="form-group col-md-12">
+                                                            <label>Confirm Password <span class="required">*</span></label>
+                                                            <input required="" class="form-control" name="cpassword" type="password" />
+                                                        </div>
+                                                        <div class="col-md-12">
+                                                            <button type="submit" class="btn btn-fill-out submit font-weight-bold" name="submit" value="Submit">Save Change</button>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        const chart_labels = {{ month|safe }}
+        const chart_data = {{ total_orders|safe }}
+        const ctx = document.getElementById('myChart');
+      
+        new Chart(ctx, {
+          type: 'bar',
+          data: {
+            labels: chart_labels,
+            datasets: [{
+              label: 'Orders',
+              data: chart_data,
+              backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(255, 159, 64, 0.2)',
+                'rgba(255, 205, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(201, 203, 207, 0.2)'
+                ],
+                borderColor: [
+                'rgb(255, 99, 132)',
+                'rgb(255, 159, 64)',
+                'rgb(255, 205, 86)',
+                'rgb(75, 192, 192)',
+                'rgb(54, 162, 235)',
+                'rgb(153, 102, 255)',
+                'rgb(201, 203, 207)'
+                ],
+              borderWidth: 1
+            }]
+          },
+          options: {
+            scales: {
+              y: {
+                beginAtZero: true
+              }
+            }
+          }
+        });
+      </script>
+{% endblock content %}

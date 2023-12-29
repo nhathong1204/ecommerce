@@ -1,0 +1,114 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+{% block content %}
+    <div class="invoice invoice-content invoice-5">
+        <div class="page-header breadcrumb-wrap">
+            <div class="container">
+                <div class="breadcrumb">
+                    <a href="{% url 'core:index' %}" rel="nofollow"><i class="fi-rs-home mr-5"></i>Home</a>
+                    <span></span> Shop
+                    <span></span> Payment
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="invoice-inner">
+                        <div class="invoice-info" id="invoice_wrapper">
+                            <div class="invoice-header">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="logo d-flex align-items-center">
+                                            <a href="{% url 'core:index' %}" class="mr-20"><img src="{% static 'assets/imgs/theme/favicon.svg' %}" alt="logo" /></a>
+                                            <div class="text">
+                                                <strong class="text-brand">{{ request.user|title }}</strong> <br />
+                                                205 North, Suite 810, Chicago, USA
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 text-end">
+                                        <h2>INVOICE</h2>
+                                        <h6>ID Number: <span class="text-brand">98657</span></h6>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="invoice-banner">
+                                <img src="{% static 'assets/imgs/invoice/banner.png' %}" alt="">
+                            </div>
+                            <div class="invoice-center">
+                                <div class="table-responsive">
+                                    <table class="table table-striped invoice-table">
+                                        <thead class="bg-active">
+                                            <tr>
+                                                <th>Item Item</th>
+                                                <th class="text-center">Unit Price</th>
+                                                <th class="text-center">Quantity</th>
+                                                <th class="text-right">Amount</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for product_id, item in cart_data.items %}
+                                            <tr>
+                                                <td>
+                                                    <div class="item-desc-1">
+                                                        <span>{{ item.title }}</span>
+                                                    </div>
+                                                </td>
+                                                <td class="text-center">${{ item.price|floatformat:2 }}</td>
+                                                <td class="text-center">{{ item.qty }}</td>
+                                                <td class="text-right">${{ item.subtotal|floatformat:2 }}</td>
+                                            </tr>
+                                            {% endfor %}
+                                            <tr>
+                                                <td colspan="3" class="text-end f-w-600">SubTotal</td>
+                                                <td class="text-right">${{ cart_total_amount|floatformat:2 }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="3" class="text-end f-w-600">Tax</td>
+                                                <td class="text-right">$0.00</td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="3" class="text-end f-w-600">Grand Total</td>
+                                                <td class="text-right f-w-600">${{ cart_total_amount|floatformat:2 }}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="invoice-bottom pb-80">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <h6 class="mb-15">Invoice Infor</h6>
+                                        <p class="font-sm">
+                                            <strong>Invoice To:</strong> {{ request.user|title }}<br />
+                                        </p>
+                                    </div>
+                                    <div class="col-md-6 text-end">
+                                        <h6 class="mb-15">Total Amount</h6>
+                                        <h3 class="mt-0 mb-0 text-brand">${{ cart_total_amount|floatformat:2 }}</h3>
+                                        <p class="mb-0 text-muted">Taxes Included</p>
+                                    </div>
+                                </div>
+                                <div class="row text-center">
+                                    <div class="hr mt-30 mb-30"></div>
+                                    <p class="mb-0 text-muted"><strong>Note:</strong>Thanks for our shopping at NestMart.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="invoice-btn-section clearfix d-print-none">
+                            <a href="javascript:window.print()" class="btn btn-lg btn-custom btn-print hover-up"> <img src="{% static 'assets/imgs/theme/icons/icon-print.svg' %}" alt="" /> Print </a>
+                            <a id="invoice_download_btn" class="btn btn-lg btn-custom btn-download hover-up"> <img src="{% static 'assets/imgs/theme/icons/icon-download.svg' %}" alt="" /> Download </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Vendor JS-->
+    <script src="{% static 'assets/js/vendor/modernizr-3.6.0.min.js' %}"></script>
+    <script src="{% static 'assets/js/vendor/jquery-3.6.0.min.js' %}"></script>
+    <!-- Invoice JS -->
+    <script src="{% static 'assets/js/invoice/jspdf.min.js' %}"></script>
+    <script src="{% static 'assets/js/invoice/invoice.js' %}"></script>
+{% endblock content %}
