@@ -26,7 +26,9 @@ SECRET_KEY = 'django-insecure-=8pnkas9p7a(d&q(f03_5y8_s%i2st0wa)y$u(%0#pyy-8*ip^
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['nestmarket.up.railway.app']
+
+CSRF_TRUSTED_ORIGINS = ['https://nestmarket.up.railway.app']
 
 
 # Application definition
